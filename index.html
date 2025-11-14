@@ -222,7 +222,7 @@
                 <div id="successMessage" class="success-message">
                     Thank you for your message! We'll get back to you soon.
                 </div>
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/xwpkwwbz" method="POST">
                     <div class="form-group">
                         <label for="name">Name *</label>
                         <input type="text" id="name" name="name" required>
@@ -239,6 +239,8 @@
                         <label for="message">Project Details *</label>
                         <textarea id="message" name="message" required placeholder="Tell us about your project..."></textarea>
                     </div>
+                    <input type="hidden" name="_subject" value="New 3D Printing Inquiry from Website">
+                    <input type="hidden" name="_next" value="https://jtwm-0677.github.io/LxL3D-Printing">
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
             </div>
@@ -250,34 +252,8 @@
     </div>
 
     <script>
-        // Simple form handling - stores to localStorage for now
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                message: document.getElementById('message').value,
-                timestamp: new Date().toISOString()
-            };
-
-            // Store in localStorage
-            const submissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
-            submissions.push(formData);
-            localStorage.setItem('formSubmissions', JSON.stringify(submissions));
-
-            // Show success message
-            document.getElementById('successMessage').style.display = 'block';
-
-            // Reset form
-            this.reset();
-
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                document.getElementById('successMessage').style.display = 'none';
-            }, 5000);
-        });
+        // Form will be handled by Formspree
+        // The first submission will require email verification at layerlab3d@yahoo.com
     </script>
 </body>
 </html>
