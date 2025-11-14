@@ -254,9 +254,25 @@
 
         <footer>
             <p>&copy; 2025 LxL 3D Printing. All rights reserved.</p>
-            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">
-                <span id="page-views">Loading views...</span>
-            </p>
+            <div style="margin-top: 10px;">
+                <!-- Default Statcounter code for Printing Website https://jtwm-0677.github.io/LxL3D-Printing/ -->
+                <script type="text/javascript">
+                var sc_project=13183226;
+                var sc_invisible=0;
+                var sc_security="280bb96a";
+                var scJsHost = "https://";
+                document.write("<sc"+"ript type='text/javascript' src='" +
+                scJsHost+
+                "statcounter.com/counter/counter.js'></"+"script>");
+                </script>
+                <noscript><div class="statcounter"><a title="Web Analytics"
+                href="https://statcounter.com/" target="_blank"><img
+                class="statcounter"
+                src="https://c.statcounter.com/13183226/0/280bb96a/0/"
+                alt="Web Analytics"
+                referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+                <!-- End of Statcounter Code -->
+            </div>
         </footer>
     </div>
 
@@ -285,28 +301,6 @@
 
             document.getElementById('submission-time').value = formattedTime + ' ' + timezone;
         });
-
-        // Visitor counter using hits.sh - simple, reliable, persistent
-        async function updateVisitorCount() {
-            try {
-                const response = await fetch('https://hits.sh/jtwm-0677.github.io/LxL3D-Printing.json');
-                const data = await response.json();
-
-                const count = data.hits || 0;
-                const viewText = count === 1 ? 'visitor' : 'visitors';
-                document.getElementById('page-views').textContent = `${count.toLocaleString()} ${viewText}`;
-            } catch (error) {
-                console.error('Visitor counter error:', error);
-                // Fallback to simple localStorage counter
-                let views = parseInt(localStorage.getItem('localViews') || '0');
-                views++;
-                localStorage.setItem('localViews', views);
-                document.getElementById('page-views').textContent = `${views} visits (this browser)`;
-            }
-        }
-
-        // Update count on page load
-        updateVisitorCount();
     </script>
 </body>
 </html>
