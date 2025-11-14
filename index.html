@@ -246,6 +246,7 @@
                         <label for="message">Project Details *</label>
                         <textarea id="message" name="message" required placeholder="Tell us about your project..."></textarea>
                     </div>
+                    <input type="hidden" id="submission-time" name="Submission_Time_EST" value="">
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
             </div>
@@ -257,8 +258,30 @@
     </div>
 
     <script>
-        // Form will be handled by Formspree
-        // The first submission will require email verification at layerlab3d@yahoo.com
+        // Add Eastern Time timestamp before form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            const now = new Date();
+
+            // Convert to Eastern Time (handles both EST and EDT automatically)
+            const estTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+
+            // Format: "Nov 14, 2024 at 2:24 AM EST"
+            const options = {
+                timeZone: 'America/New_York',
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            };
+
+            const formattedTime = estTime.toLocaleString('en-US', options);
+            const isDST = estTime.getTimezoneOffset() < new Date(estTime.getFullYear(), 0, 1).getTimezoneOffset();
+            const timezone = isDST ? 'EDT' : 'EST';
+
+            document.getElementById('submission-time').value = formattedTime + ' ' + timezone;
+        });
     </script>
 </body>
 </html>
