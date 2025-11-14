@@ -254,6 +254,9 @@
 
         <footer>
             <p>&copy; 2024 LxL 3D Printing. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">
+                <span id="page-views">Loading views...</span>
+            </p>
         </footer>
     </div>
 
@@ -282,6 +285,19 @@
 
             document.getElementById('submission-time').value = formattedTime + ' ' + timezone;
         });
+
+        // Simple page view counter using localStorage
+        function updatePageViews() {
+            let views = parseInt(localStorage.getItem('pageViews') || '0');
+            views++;
+            localStorage.setItem('pageViews', views);
+
+            const viewText = views === 1 ? 'view' : 'views';
+            document.getElementById('page-views').textContent = `${views} page ${viewText}`;
+        }
+
+        // Update views on page load
+        updatePageViews();
     </script>
 </body>
 </html>
