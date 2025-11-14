@@ -17,7 +17,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
             background: white;
         }
 
@@ -25,132 +25,192 @@
             width: 8.5in;
             height: 11in;
             position: relative;
+            background: white;
             page-break-after: always;
+            display: flex;
+            flex-direction: column;
         }
 
-        .half {
+        /* Top section - 5.25in, upside down */
+        .side.top {
             width: 100%;
-            height: 5.5in;
+            height: 5.25in;
             padding: 0.5in;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            position: relative;
-        }
-
-        .half.bottom {
+            background: white;
             transform: rotate(180deg);
         }
 
-        .logo {
-            font-size: 3em;
-            font-weight: bold;
-            margin-bottom: 0.3in;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .tagline {
-            font-size: 1.5em;
-            margin-bottom: 0.4in;
-            font-style: italic;
-            opacity: 0.95;
-        }
-
-        .services {
-            background: rgba(255,255,255,0.95);
-            color: #333;
-            padding: 0.4in;
-            border-radius: 15px;
-            margin: 0.3in 0;
-            width: 90%;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-
-        .services h2 {
-            color: #667eea;
-            margin-bottom: 0.2in;
-            font-size: 1.4em;
-        }
-
-        .services ul {
-            list-style: none;
-            text-align: left;
-            font-size: 1.1em;
-            line-height: 1.8;
-        }
-
-        .services li:before {
-            content: "✓ ";
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-
-        .qr-section {
+        /* Fold area - 0.5in gap */
+        .fold-area {
+            width: 100%;
+            height: 0.5in;
             background: white;
-            padding: 0.3in;
-            border-radius: 15px;
-            margin-top: 0.3in;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-
-        .qr-placeholder {
-            width: 2in;
-            height: 2in;
-            background: white;
-            border: 3px dashed #667eea;
+            border-top: 1px dashed #ccc;
+            border-bottom: 1px dashed #ccc;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9em;
-            color: #667eea;
-            font-weight: bold;
-            margin: 0 auto;
-        }
-
-        .qr-text {
-            margin-top: 0.15in;
-            font-size: 1em;
-            color: #333;
-            font-weight: bold;
-        }
-
-        .contact-info {
-            background: rgba(255,255,255,0.95);
-            color: #333;
-            padding: 0.3in;
-            border-radius: 10px;
-            margin-top: 0.3in;
-            font-size: 1em;
-            width: 90%;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-
-        .fold-line {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            border-top: 2px dashed #999;
-            z-index: 1000;
         }
 
         .fold-instruction {
-            position: absolute;
-            top: 50%;
-            right: -0.3in;
-            transform: translateY(-50%);
+            display: none;
+        }
+
+        /* Bottom section - 5.25in, normal orientation */
+        .side.bottom {
+            width: 100%;
+            height: 5.25in;
+            padding: 0.5in;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             background: white;
-            padding: 5px 10px;
-            border: 1px solid #999;
-            font-size: 0.7em;
-            color: #666;
-            z-index: 1001;
+        }
+
+        .logo {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25in;
+        }
+
+        .logo-accent {
+            color: #4f46e5;
+        }
+
+        /* Flip the logo on TOP half to compensate for section rotation */
+        .side.top .logo {
+            transform: rotate(180deg);
+            display: inline-block;
+        }
+
+        /* Flip the logo on BOTTOM half */
+        .side.bottom .logo {
+            transform: rotate(180deg);
+            display: inline-block;
+        }
+
+        .tagline {
+            font-size: 1em;
+            color: #6b7280;
+            font-weight: 500;
+            margin-bottom: 0.4in;
+            letter-spacing: 0.02em;
+        }
+
+        /* Decorative QR Code Container */
+        .qr-decorative-wrapper {
+            position: relative;
+            margin: 0.3in 0;
+        }
+
+        .qr-outer-frame {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            padding: 0.35in;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+            position: relative;
+        }
+
+        .qr-inner-frame {
+            background: white;
+            padding: 0.2in;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        /* Corner decorations */
+        .qr-corner {
+            position: absolute;
+            width: 0.3in;
+            height: 0.3in;
+            border: 3px solid #4f46e5;
+        }
+
+        .qr-corner.top-left {
+            top: -0.05in;
+            left: -0.05in;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 8px 0 0 0;
+        }
+
+        .qr-corner.top-right {
+            top: -0.05in;
+            right: -0.05in;
+            border-left: none;
+            border-bottom: none;
+            border-radius: 0 8px 0 0;
+        }
+
+        .qr-corner.bottom-left {
+            bottom: -0.05in;
+            left: -0.05in;
+            border-right: none;
+            border-top: none;
+            border-radius: 0 0 0 8px;
+        }
+
+        .qr-corner.bottom-right {
+            bottom: -0.05in;
+            right: -0.05in;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 8px 0;
+        }
+
+        #qrcode, #qrcode2 {
+            width: 2.5in;
+            height: 2.5in;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        #qrcode canvas, #qrcode2 canvas {
+            border-radius: 4px;
+        }
+
+        .scan-text {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-top: 0.25in;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.1in;
+        }
+
+        .scan-icon {
+            font-size: 1.3em;
+        }
+
+        .url-display {
+            font-size: 0.95em;
+            color: #4f46e5;
+            font-weight: 600;
+            margin-top: 0.15in;
+            padding: 0.1in 0.2in;
+            background: #eff6ff;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .services-compact {
+            margin-top: 0.3in;
+            font-size: 0.9em;
+            color: #6b7280;
+            font-weight: 500;
         }
 
         @media print {
@@ -160,54 +220,70 @@
             }
 
             .fold-instruction {
-                display: none;
+                color: #ddd;
             }
         }
     </style>
 </head>
 <body>
     <div class="page">
-        <!-- Fold line indicator -->
-        <div class="fold-line"></div>
-        <div class="fold-instruction">← FOLD HERE →</div>
+        <!-- Top half (flipped upside down) -->
+        <div class="side top">
+            <div class="logo">
+                <span class="logo-accent">LxL</span> 3D Printing
+            </div>
+            <div class="tagline">Precision • Quality • Innovation</div>
 
-        <!-- Top half (will face customer when folded) -->
-        <div class="half top">
-            <div class="logo">LxL 3D Printing</div>
-            <div class="tagline">Bringing Your Ideas to Life</div>
-
-            <div class="services">
-                <h2>Our Services</h2>
-                <ul>
-                    <li>Custom 3D Prints</li>
-                    <li>Design Assistance</li>
-                    <li>Rapid Prototyping</li>
-                    <li>Multiple Materials Available</li>
-                </ul>
+            <div class="qr-decorative-wrapper">
+                <div class="qr-outer-frame">
+                    <div class="qr-corner top-left"></div>
+                    <div class="qr-corner top-right"></div>
+                    <div class="qr-corner bottom-left"></div>
+                    <div class="qr-corner bottom-right"></div>
+                    <div class="qr-inner-frame">
+                        <div id="qrcode"></div>
+                    </div>
+                </div>
             </div>
 
-            <div class="contact-info">
-                <strong>Visit our website for quotes!</strong>
+            <div class="scan-text">
+                <span class="scan-icon">📱</span>
+                <span>Scan for More Info</span>
             </div>
+            <div class="url-display">jtwm-0677.github.io/LxL3D-Printing</div>
+            <div class="services-compact">Custom Prints • Design Services • Prototyping</div>
         </div>
 
-        <!-- Bottom half (will face you when folded) -->
-        <div class="half bottom">
-            <div class="logo">LxL 3D Printing</div>
+        <!-- Fold area -->
+        <div class="fold-area">
+            <div class="fold-instruction">Fold Here</div>
+        </div>
 
-            <div class="qr-section">
-                <div class="qr-placeholder" id="qrcode">
-                    QR CODE<br>GOES HERE
+        <!-- Bottom half (normal orientation) -->
+        <div class="side bottom">
+            <div class="logo">
+                <span class="logo-accent">LxL</span> 3D Printing
+            </div>
+            <div class="tagline">Precision • Quality • Innovation</div>
+
+            <div class="qr-decorative-wrapper">
+                <div class="qr-outer-frame">
+                    <div class="qr-corner top-left"></div>
+                    <div class="qr-corner top-right"></div>
+                    <div class="qr-corner bottom-left"></div>
+                    <div class="qr-corner bottom-right"></div>
+                    <div class="qr-inner-frame">
+                        <div id="qrcode2"></div>
+                    </div>
                 </div>
-                <div class="qr-text">Scan for More Info!</div>
             </div>
 
-            <div class="contact-info">
-                <div style="font-size: 1.1em; margin-bottom: 10px;">
-                    <strong>jtwm-0677.github.io/LxL3D-Printing</strong>
-                </div>
-                <div>Professional • Affordable • Fast</div>
+            <div class="scan-text">
+                <span class="scan-icon">📱</span>
+                <span>Scan for More Info</span>
             </div>
+            <div class="url-display">jtwm-0677.github.io/LxL3D-Printing</div>
+            <div class="services-compact">Custom Prints • Design Services • Prototyping</div>
         </div>
     </div>
 
@@ -215,23 +291,23 @@
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <script>
         window.addEventListener('load', function() {
-            const qrElement = document.getElementById('qrcode');
-            qrElement.innerHTML = '';
+            const qrElement1 = document.getElementById('qrcode');
+            const qrElement2 = document.getElementById('qrcode2');
 
-            new QRCode(qrElement, {
+            qrElement1.innerHTML = '';
+            qrElement2.innerHTML = '';
+
+            const qrOptions = {
                 text: 'https://jtwm-0677.github.io/LxL3D-Printing',
-                width: 192,
-                height: 192,
-                colorDark: '#667eea',
+                width: 240,
+                height: 240,
+                colorDark: '#000000',
                 colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.H
-            });
+            };
 
-            // Wait a moment for QR code to render, then print
-            setTimeout(function() {
-                // Uncomment the line below if you want auto-print
-                // window.print();
-            }, 1000);
+            new QRCode(qrElement1, qrOptions);
+            new QRCode(qrElement2, qrOptions);
         });
     </script>
 </body>
