@@ -286,30 +286,27 @@
             document.getElementById('submission-time').value = formattedTime + ' ' + timezone;
         });
 
-        // Unique visitor counter using GoatCounter (free analytics service)
-        // This tracks unique visitors persistently across all users
-        const goatcounterScript = document.createElement('script');
-        goatcounterScript.src = "//gc.zgo.at/count.js";
-        goatcounterScript.async = true;
-        goatcounterScript.setAttribute('data-goatcounter', 'https://lxl3dprinting.goatcounter.com/count');
-        document.head.appendChild(goatcounterScript);
-
-        // Fetch and display visitor count
-        async function updateUniqueVisitors() {
+        // Visitor counter using hits.sh - simple, reliable, persistent
+        async function updateVisitorCount() {
             try {
-                // Using CountAPI.xyz - free, persistent visitor counter
-                const response = await fetch('https://api.countapi.xyz/hit/lxl3dprinting.github.io/visits');
+                const response = await fetch('https://hits.sh/jtwm-0677.github.io/LxL3D-Printing.json');
                 const data = await response.json();
 
-                const viewText = data.value === 1 ? 'unique visitor' : 'unique visitors';
-                document.getElementById('page-views').textContent = `${data.value} ${viewText}`;
+                const count = data.hits || 0;
+                const viewText = count === 1 ? 'visitor' : 'visitors';
+                document.getElementById('page-views').textContent = `${count.toLocaleString()} ${viewText}`;
             } catch (error) {
-                document.getElementById('page-views').textContent = 'Visitor counter unavailable';
+                console.error('Visitor counter error:', error);
+                // Fallback to simple localStorage counter
+                let views = parseInt(localStorage.getItem('localViews') || '0');
+                views++;
+                localStorage.setItem('localViews', views);
+                document.getElementById('page-views').textContent = `${views} visits (this browser)`;
             }
         }
 
-        // Update views on page load
-        updateUniqueVisitors();
+        // Update count on page load
+        updateVisitorCount();
     </script>
 </body>
 </html>
